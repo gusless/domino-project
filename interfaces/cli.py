@@ -163,21 +163,21 @@ class CLI:
             try:
                 agent_str = int(input(
                     "\n***Selecioner o tipo do agente***\n" 
-                    + "- Escolher aleatoriamente (0)\n" # não seleciona agentes diferentes por enquanto
-                    + "- RandomAgent (1)\n"
-                    # + "GreedyAgent (2)\n"
+                    + "- (0) Escolher aleatoriamente\n" # não seleciona agentes diferentes por enquanto
+                    + "- (1) RandomAgent\n"
+                    + "- (2) GreedyAgent\n"
                     ))
                 
                 match agent_str:
                     case 0:
                         return random.choice([
                             RandomAgent(),
-                            #GreedyAgent(),
+                            GreedyAgent(),
                         ])
                     case 1: 
                         return RandomAgent()
-                    #case 2:
-                    #    return GreedyAgent()
+                    case 2:
+                        return GreedyAgent()
                     case _:
                         raise(ValueError("Escolha um valor válido"))
             except ValueError as error:

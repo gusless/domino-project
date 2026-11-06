@@ -1,24 +1,36 @@
 from agents.base import BaseAgent
 import random
 
-import random
 from agents.base import BaseAgent
 from domino.actions import PlayAction
+from domino import rules
 
 class GreedyAgent(BaseAgent):
     def choose_play(self, game, playable: list[int]) -> PlayAction:
         """
-        Recebe a lista de índices (playable) e escolhe a pedra com a maior soma.
+        Recebe a lista de índices (playable) e escolhe a peça com a maior prioridade:
+        primeiro os doubles e depois as maiores somas.
         """
         player = game.current_player
-        mao_do_jogador = player.tiles
 
-        best_idx = max(playable, key=lambda idx: sum(mao_do_jogador[idx]))
-        best_tile = mao_do_jogador[best_idx]
+        playable_tiles = [
+            (idx, tiles) 
+            for idx, tiles in enumerate(player.tiles) 
+            if idx in playable
+        ]
 
-        side = self.choose_side(best_tile, game.table)
+        priority_tile = game.get_generic_prioritized_tiles(
+            [tile for _, tile in playable_tiles]
+        )[0]
+
+        tile_idx = next(
+            idx for idx, tile in playable_tiles
+            if tile == priority_tile
+        )
+
+        side = self.choose_side(priority_tile, game.table)
         
-        return PlayAction(tile_index=best_idx, side=side) 
+        return PlayAction(tile_index=tile_idx, side=side) 
 
     def select_side(self, tile, table) -> str:
         """
