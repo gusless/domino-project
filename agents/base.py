@@ -15,7 +15,7 @@ class BaseAgent(ABC):
 
         playable = rules.get_playable_indices(player, table)
 
-        time.sleep(1)
+        #time.sleep(1)
 
         if not playable:
             if game.has_stock and game.stock:
