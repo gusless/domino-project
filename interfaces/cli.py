@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import random
 
 from domino.actions import DrawAction, PassAction, PlayAction
@@ -113,7 +115,7 @@ class CLI:
         tile = player.tiles[action.tile_index]
         print(
             f"Jogou: {tile} no lado "
-            + f"{"direito" if action.side == "right" else "esquerdo"}"
+            + f"{'direito' if action.side == 'right' else 'esquerdo'}"
         )
 
     def play_round(self, game: Game, controllers: list[Controller]) -> None:
