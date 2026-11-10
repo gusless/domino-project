@@ -41,11 +41,14 @@ def test_last_tile_ends_round_and_scores_once():
     game = configured_game([[(6, 1)], [(1, 2)]])
     game.apply_action(PlayAction(0, "right"))
     assert game.round_over
-    assert game.winner is game.players[0]
-    assert game.winner.wins == 1
+
+    winner = game.winner
+    assert winner is game.players[0]
+    assert winner is not None
+    assert winner.wins == 1
     with pytest.raises(RuntimeError):
         game.apply_action(PassAction())
-    assert game.winner.wins == 1
+    assert winner.wins == 1
 
 
 @pytest.mark.parametrize("pull_one,drawn,expected", [
