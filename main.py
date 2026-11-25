@@ -10,16 +10,17 @@ def main() -> None:
 
     n_players, tile_count, has_stock, pull_one = cli.ask_configuration()
 
-    agent_type = cli.ask_agent_type()
+    # A CLI escolhe a estratégia; cada bot recebe um objeto próprio.
+    agent_type = type(cli.ask_agent_type(n_players))
 
     controllers: list[Controller]
 
     if cli.ask_agent_vs_agent():
-        controllers = [AgentController(agent_type) for _ in range(n_players)]
+        controllers = [AgentController(agent_type()) for _ in range(n_players)]
     else:
         controllers = [
             HumanController(cli),
-            *(AgentController(agent_type) for _ in range(n_players - 1))
+            *(AgentController(agent_type()) for _ in range(n_players - 1))
         ]
 
     while True:
