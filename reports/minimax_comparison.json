@@ -1,0 +1,134 @@
+{
+  "seeds": 30,
+  "depth": 3,
+  "samples": 6,
+  "max_nodes": 2500,
+  "time_limit_seconds": 0.2,
+  "reference": "saved_previous_agent",
+  "method": "Seeds pareadas, lugares alternados, com e sem monte; 7 peças por jogador.",
+  "rows": [
+    {
+      "version": "baseline",
+      "opponent": "RandomAgent",
+      "stock": false,
+      "games": 60,
+      "win": 34,
+      "loss": 25,
+      "draw": 1,
+      "decisions": 367,
+      "mean_ms": 12.32389128295583,
+      "max_ms": 74.15080000646412,
+      "searches_without_complete_sample": 0
+    },
+    {
+      "version": "history",
+      "opponent": "RandomAgent",
+      "stock": false,
+      "games": 60,
+      "win": 38,
+      "loss": 21,
+      "draw": 1,
+      "decisions": 367,
+      "mean_ms": 11.44283760290806,
+      "max_ms": 77.12510001147166,
+      "searches_without_complete_sample": 0
+    },
+    {
+      "version": "baseline",
+      "opponent": "RandomAgent",
+      "stock": true,
+      "games": 60,
+      "win": 37,
+      "loss": 23,
+      "draw": 0,
+      "decisions": 687,
+      "mean_ms": 11.061964339249275,
+      "max_ms": 82.61300000594929,
+      "searches_without_complete_sample": 0
+    },
+    {
+      "version": "history",
+      "opponent": "RandomAgent",
+      "stock": true,
+      "games": 60,
+      "win": 41,
+      "loss": 18,
+      "draw": 1,
+      "decisions": 716,
+      "mean_ms": 11.11046284909995,
+      "max_ms": 86.57540002604946,
+      "searches_without_complete_sample": 0
+    },
+    {
+      "version": "baseline",
+      "opponent": "GreedyAgent",
+      "stock": false,
+      "games": 60,
+      "win": 24,
+      "loss": 34,
+      "draw": 2,
+      "decisions": 372,
+      "mean_ms": 11.154059947515908,
+      "max_ms": 54.05019997851923,
+      "searches_without_complete_sample": 0
+    },
+    {
+      "version": "history",
+      "opponent": "GreedyAgent",
+      "stock": false,
+      "games": 60,
+      "win": 29,
+      "loss": 29,
+      "draw": 2,
+      "decisions": 374,
+      "mean_ms": 11.30716497405995,
+      "max_ms": 67.88459996460006,
+      "searches_without_complete_sample": 0
+    },
+    {
+      "version": "baseline",
+      "opponent": "GreedyAgent",
+      "stock": true,
+      "games": 60,
+      "win": 37,
+      "loss": 22,
+      "draw": 1,
+      "decisions": 789,
+      "mean_ms": 10.698646640892557,
+      "max_ms": 108.96250000223517,
+      "searches_without_complete_sample": 0
+    },
+    {
+      "version": "history",
+      "opponent": "GreedyAgent",
+      "stock": true,
+      "games": 60,
+      "win": 40,
+      "loss": 19,
+      "draw": 1,
+      "decisions": 791,
+      "mean_ms": 10.247127939555464,
+      "max_ms": 99.60409998893738,
+      "searches_without_complete_sample": 0
+    }
+  ],
+  "head_to_head": {
+    "win": 52,
+    "loss": 67,
+    "draw": 1
+  },
+  "overall_timing": {
+    "history": {
+      "decisions": 2248,
+      "mean_ms": 10.893670240529188,
+      "max_ms": 99.60409998893738
+    },
+    "baseline": {
+      "decisions": 2215,
+      "mean_ms": 11.157101626207307,
+      "max_ms": 108.96250000223517
+    }
+  },
+  "limitations": "Amostra exploratória; resultados não demonstram superioridade estatística. Tempo pode afetar decisões.",
+  "elapsed_seconds": 72.24945400003344
+}

@@ -7,6 +7,7 @@ from . import rules
 from .player import Player
 from .table import Table
 from .tile import Tile
+from .history import PublicAction
 
 # if TYPE_CHECKING:
 #     from controllers.controller import Controller
@@ -29,6 +30,7 @@ class Game:
         self.round_over = False
         self.winner: Player | None = None
         self.draw_result: Tile | None = None
+        self.public_history: list[PublicAction] = []
 
     @staticmethod
     def make_tiles() -> list[Tile]:
@@ -134,6 +136,7 @@ class Game:
         self.winner = None
         self.draw_result = None
 
+        self.public_history = []
         self._select_starter()
 
     @property
@@ -159,17 +162,25 @@ class Game:
             raise RuntimeError("A rodada já terminou.")
 
         player = self.current_player
+        actor = self.current_player_index
+        endpoints = self.table.get_sides()
 
         if isinstance(action, PlayAction):
             self._play(player, action)
+            # A peça já foi removida da mão e está visível na mesa.
+            tile = self.table.tiles_deque[0 if action.side == "left" else -1]
+            event = PublicAction(actor, "play", endpoints, tuple(tile))
         elif isinstance(action, DrawAction):
             self._draw(player)
+            event = PublicAction(actor, "draw", endpoints)
         elif isinstance(action, PassAction):
             self._pass(player)
             self._advance_turn()
+            event = PublicAction(actor, "pass", endpoints)
         else:
             raise TypeError("Tipo de ação desconhecido.")
 
+        self.public_history.append(event)
         self._check_round_end()
 
     def _play(self, player: Player, action: PlayAction) -> None:

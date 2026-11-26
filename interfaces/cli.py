@@ -37,8 +37,6 @@ class CLI:
                 tile_count = int(input("Peças por jogador (mínimo 5): "))
                 has_stock = self.ask_yes_no("Terá dorme/compra? (s/n): ")
                 pull_one = False
-                if has_stock:
-                    pull_one = self.ask_yes_no("Limitar a compra a uma peça por vez? (s/n): ")
                 if not 2 <= n_players <= 4:
                     raise ValueError("Só são permitidos de 2 a 4 jogadores.")
                 if tile_count < 5 or tile_count * n_players > 28:
@@ -134,6 +132,10 @@ class CLI:
 
             try:
                 game.apply_action(action)
+                if isinstance(action, DrawAction):
+                    print(f"{player.name} comprou uma peça.")
+                elif isinstance(action, PassAction):
+                    print(f"{player.name} passou a vez.")
             except (ValueError, IndexError, RuntimeError) as error:
                 print(f"Jogada inválida: {error}")
 
@@ -160,7 +162,7 @@ class CLI:
             return True
         return False
 
-    def ask_agent_type(self) -> BaseAgent:
+    def ask_agent_type(self, n_players: int = 2) -> BaseAgent:
         while True:
             try:
                 agent_str = int(input(
@@ -168,6 +170,8 @@ class CLI:
                     + "- (0) Escolher aleatoriamente\n" # não seleciona agentes diferentes por enquanto
                     + "- (1) RandomAgent\n"
                     + "- (2) GreedyAgent\n"
+                    + ("- (3) Minimax com Alfa-Beta (mão adversária oculta)\n" if n_players == 2
+                       else "- (3) Max-n (mãos adversárias ocultas)\n")
                     ))
                 
                 match agent_str:
@@ -180,6 +184,8 @@ class CLI:
                         return RandomAgent()
                     case 2:
                         return GreedyAgent()
+                    case 3:
+                        return MinimaxAgent()
                     case _:
                         raise(ValueError("Escolha um valor válido"))
             except ValueError as error:

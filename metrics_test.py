@@ -20,7 +20,7 @@ def executar_torneio_silencioso(rodadas=1000):
     for _ in range(rodadas):
         jogo = Game()
 
-        jogo.start_round(n_players=4, tile_count=7, has_stock=True, pull_one=True)
+        jogo.start_round(n_players=4, tile_count=7, has_stock=True, pull_one=False)
         
         inicio_rodada = time.time()
 
